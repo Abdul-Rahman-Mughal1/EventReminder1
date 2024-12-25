@@ -1,0 +1,28 @@
+﻿@model IEnumerable<EventReminder.Models.Event>
+
+<h2>Event List</h2>
+<a asp-action="Create" class="btn btn-primary">Add Event</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.EventDate.ToShortDateString()</td>
+                <td>@item.Description</td>
+                <td>
+                    <a asp-action="Countdown" asp-route-id="@item.Id" class="btn btn-info">View Countdown</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

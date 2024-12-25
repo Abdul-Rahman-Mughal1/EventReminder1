@@ -1,0 +1,26 @@
+﻿@model EventReminder.Models.Event
+
+<h2>Countdown for @Model.Name</h2>
+<p>Event Date: @Model.EventDate.ToShortDateString()</p>
+
+<div id="countdown"></div>
+
+<script>
+    const eventDate = new Date('@Model.EventDate').getTime();
+
+    const countdownInterval = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = eventDate - now;
+
+        if (distance < 0) {
+            clearInterval(countdownInterval);
+            document.getElementById("countdown").innerHTML = "The event has passed!";
+        } else {
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+    }, 1000);
+</script>
